@@ -13,10 +13,10 @@ const routes = {
       }
     },
     { 
-      path: 'list', 
+      path: 'customer', 
       getComponent(nextState, cb) {
         require.ensure([], (require) => {
-          cb(null, require('components/list'))
+          cb(null, require('components/customer'))
         })
       }
     }

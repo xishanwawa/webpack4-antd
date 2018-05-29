@@ -4,7 +4,7 @@
 
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { Button } from 'antd';
+import { Button, Input, Row, Col } from 'antd';
 import request from "reqwest";
 
 
@@ -14,7 +14,14 @@ class Home extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
-      data: []
+      newIndex: 0,
+      data: [{
+        name: "名称1"
+      }, {
+        name: "名称2"
+      }, {
+        name: "名称3"
+      }]
     }
   }
 
@@ -22,21 +29,76 @@ class Home extends React.Component {
 
   }
 
-  getClickData = ()=>{
-    request({
-      url: '/api/index',
-      method: 'get', 
-      error: function (err) { }, 
-      success: function (resp) {
-        debugger
-      }
-    })
+  renderData = () => {
+    let data = this.state.data;
+
+    data = data.map((item, index) => {
+      item.serverIndex = index;
+      return item;
+    });
+
+    data = data.filter((item, index) => {
+      return item.isDelete != 1;
+    });
+    return data;
   }
 
+  submitData = () => {
+    let data = this.state.data;
+    data = data.filter((item, index) => {
+      return item.isDelete || item.isLocalAdd
+    });
+    console.log(data);
+  }
+
+  addData = () => {
+    let data = this.state.data;
+    let newIndex = this.state.newIndex;
+    newIndex++;
+    data.push({
+      name: "新名称" + newIndex,
+      isLocalAdd: 1
+    });
+    this.setState({ data, newIndex });
+  }
+
+  deleteData = (serverIndex) => {
+    let data = this.state.data;
+    if (data[serverIndex]["isLocalAdd"]) {
+      data.splice(serverIndex, 1);
+    } else {
+      data[serverIndex]["isDelete"] = 1;
+    }
+    this.setState(data);
+  }
+
+  // getClickData = () => {
+  //   request({
+  //     url: '/api/index',
+  //     method: 'get',
+  //     error: function (err) { },
+  //     success: function (resp) {
+  //       debugger
+  //     }
+  //   })
+  // }
+
+
   render() {
+
+    // this.getData();
+    let dom = this.renderData().map((item, index) => {
+      return <Row key={index}>
+        <Col span={2}>{item.name}</Col>
+        <Col span={6}><Button  onClick={this.deleteData.bind(this, item.serverIndex)}>删除</Button></Col>
+      </Row>
+    });
+
     return (
-      <div>
-        <Button type="primary" onClick ={this.getClickData}>home</Button>
+      <div style={{ padding: 10 }}>
+        <div style={{ padding: 20 }}>{dom}</div>
+        <Button onClick={this.addData}>新增</Button>{" "}
+        <Button type="primary" onClick={this.submitData}>提交</Button>
       </div>
     )
   }
