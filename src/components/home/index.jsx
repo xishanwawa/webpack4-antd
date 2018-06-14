@@ -95,7 +95,7 @@ class Home extends React.Component {
     });
 
     return (
-      <div style={{ padding: 10 }}>
+      <div>
         <div style={{ padding: 20 }}>{dom}</div>
         <Button onClick={this.addData}>新增</Button>{" "}
         <Button type="primary" onClick={this.submitData}>提交</Button>
