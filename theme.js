@@ -1,4 +1,4 @@
 module.exports = {
-    'primary-color': '#1eb7bc',
-    'link-color': '#1eb7bc'
-}
+  "primary-color": "#E64026",
+  "link-color": "#E64026"
+};

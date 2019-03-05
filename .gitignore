@@ -3,3 +3,4 @@ npm-debug.log
 webpack.config.ip.js
 .vscode
 .idea
+.yarn.lock

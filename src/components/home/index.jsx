@@ -2,119 +2,49 @@
  * Created by ***
  */
 
-import React, { Component, PropTypes } from 'react'
-import { connect } from 'react-redux'
-import { Button, Input, Row, Col } from 'antd';
+import React, { Component, PropTypes } from "react";
+import { connect } from "react-redux";
+import { Button, Input, Row, Col, Switch, Modal } from "antd";
+
+const { TextArea } = Input;
+
+import moment from "moment";
+
 import request from "reqwest";
 
-
-//导入UI组件
-class Home extends React.Component {
-
+//导入UI组件;
+class Index1 extends React.Component {
   constructor(props) {
-    super(props)
-    this.state = {
-      newIndex: 0,
-      data: [{
-        name: "名称1"
-      }, {
-        name: "名称2"
-      }, {
-        name: "名称3"
-      }]
-    }
+    super(props);
+    this.state = {};
   }
 
-  componentDidMount() {
-
-  }
-
-  renderData = () => {
-    let data = this.state.data;
-
-    data = data.map((item, index) => {
-      item.serverIndex = index;
-      return item;
+  getClickData = () => {
+    request({
+      url: "/api/index",
+      method: "get",
+      error: function(err) {},
+      success: function(resp) {
+        debugger;
+      }
     });
-
-    data = data.filter((item, index) => {
-      return item.isDelete != 1;
-    });
-    return data;
-  }
-
-  submitData = () => {
-    let data = this.state.data;
-    data = data.filter((item, index) => {
-      return item.isDelete || item.isLocalAdd
-    });
-    console.log(data);
-  }
-
-  addData = () => {
-    let data = this.state.data;
-    let newIndex = this.state.newIndex;
-    newIndex++;
-    data.push({
-      name: "新名称" + newIndex,
-      isLocalAdd: 1
-    });
-    this.setState({ data, newIndex });
-  }
-
-  deleteData = (serverIndex) => {
-    let data = this.state.data;
-    if (data[serverIndex]["isLocalAdd"]) {
-      data.splice(serverIndex, 1);
-    } else {
-      data[serverIndex]["isDelete"] = 1;
-    }
-    this.setState(data);
-  }
-
-  // getClickData = () => {
-  //   request({
-  //     url: '/api/index',
-  //     method: 'get',
-  //     error: function (err) { },
-  //     success: function (resp) {
-  //       debugger
-  //     }
-  //   })
-  // }
-
+  };
 
   render() {
-
-    // this.getData();
-    let dom = this.renderData().map((item, index) => {
-      return <Row key={index}>
-        <Col span={2}>{item.name}</Col>
-        <Col span={6}><Button  onClick={this.deleteData.bind(this, item.serverIndex)}>删除</Button></Col>
-      </Row>
-    });
-
-    return (
-      <div>
-        <div style={{ padding: 20 }}>{dom}</div>
-        <Button onClick={this.addData}>新增</Button>{" "}
-        <Button type="primary" onClick={this.submitData}>提交</Button>
-      </div>
-    )
+    return <div>{"home1"}</div>;
   }
 }
-
 
 function mapStateToProps(state) {
   return {
     $$state: state.home
-  }
+  };
 }
 
-module.exports = connect(mapStateToProps, {
-})(Home)
-
-
+module.exports = connect(
+  mapStateToProps,
+  {}
+)(Index1);
 
 //or
 
@@ -131,5 +61,3 @@ module.exports = connect(mapStateToProps, {
 //   }
 // }
 // module.exports = connect(mapStateToProps, mapDispatchToProps)(IndexPage)
-
-
