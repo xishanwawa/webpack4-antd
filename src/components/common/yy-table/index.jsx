@@ -3,17 +3,18 @@
  */
 
 import React, { Component, PropTypes } from "react";
-import { Drawer, Modal, Button, Table, Icon, Row, Col, Tabs } from "antd";
+import { Drawer, Modal, Tabs } from "antd";
 const TabPane = Tabs.TabPane;
 
-import { Tags, Action, SearchForm } from "./lib";
+import { columns, data, sections } from "./tpldata";
+import YYDateils from "./dateils";
+import Table from "./table";
+import HandleHead from "./handleHead";
+import ActionRecord from "./actionRecord";
+import Relation from "./relation";
+
 //导入UI组件
 export default class YYTable extends React.Component {
-  static defaultProps = {
-    onChange: (type, data) => {
-      console.log({ type: type, data: data });
-    }
-  };
   constructor(props) {
     super(props);
     this.state = {
@@ -24,74 +25,33 @@ export default class YYTable extends React.Component {
     };
   }
 
-  getRowSelection = () => {
-    let rowSelection = {
-      onChange: (selectedRowKeys, selectedRows) => {
-        this.setState({
-          selectedRowKeys,
-          selectedRows
-        });
-        // this.props.onChange("selectChange", {
-        //   selectedRowKeys,
-        //   selectedRows
-        // });
-      },
-      getCheckboxProps: record => ({
-        disabled: record.name === "Disabled User", // Column configuration not to be checked
-        name: record.name
-      })
-    };
-    return rowSelection;
-  };
-
   render() {
     return (
       <div style={{ margin: 20, padding: "20px", backgroundColor: "#ffffff" }}>
-        <div style={{ marginBottom: 16 }}>
-          <SearchForm />
-          <Row>
-            <Col span={3}>
-              <Button type="primary" onClick={this.showModal}>
-                <Icon type="plus" /> 新建
-              </Button>
-            </Col>
-            <Col span={12}>
-              {this.state.selectedRowKeys.length > 0 ? <Button onClick={() => {}}>批量操作</Button> : null}
-            </Col>
-          </Row>
-        </div>
-        <Table
-          rowSelection={this.getRowSelection()}
-          scroll={{ x: true }}
-          columns={this.pkgColumns()}
-          dataSource={this.pkgData()}
-          onRow={record => {
-            return {
-              onClick: event => {
-                this.showDrawer();
-              } // 点击行
-            };
-          }}
-        />
+        <HandleHead selectedHandleShow={this.state.selectedRowKeys.length > 0} onCreate={this.showModal} />
+        <Table onRow={this.showDrawer} rowSelectionChange={this.rowSelectionChange} />
         <Drawer
-          title={
-            <Tabs
-              tabBarStyle={{ height: 42 }}
-              defaultActiveKey="1"
-              onChange={key => {
-                console.log(key);
-              }}>
-              <TabPane tab="详情" key="1" />
-              <TabPane tab="相关" key="2" />
-              <TabPane tab="动态" key="3" />
-            </Tabs>
-          }
+          width={660}
           placement="right"
-          width={800}
-          closable={true}
+          closable={false}
           onClose={this.onCloseDrawer}
           visible={this.state.drawerVisible}>
-          {}
+          <Tabs
+            tabBarStyle={{ height: 42 }}
+            defaultActiveKey="1"
+            onChange={key => {
+              console.log(key);
+            }}>
+            <TabPane tab="详情" key="1">
+              <YYDateils />
+            </TabPane>
+            <TabPane tab="动态" key="2">
+              <ActionRecord />
+            </TabPane>
+            <TabPane tab="相关" key="3">
+              <Relation />
+            </TabPane>
+          </Tabs>
         </Drawer>
         <Modal
           title="新建"
@@ -106,28 +66,11 @@ export default class YYTable extends React.Component {
     );
   }
 
-  pkgColumns = () => {
-    return this.props.columns.map((item, index) => {
-      item.dataIndex = item.key;
-
-      //默认宽度
-      if (!item.width) {
-        item.width = 200;
-      }
-
-      if (item.type) {
-        if (item.type == "tags") {
-          item.render = Tags;
-        } else if (item.type == "action") {
-          item.render = Action;
-        }
-      }
-      return item;
+  rowSelectionChange = data => {
+    this.setState({
+      selectedRowKeys: data.selectedRowKeys,
+      selectedRows: data.selectedRows
     });
-  };
-
-  pkgData = () => {
-    return this.props.data;
   };
 
   onCloseDrawer = () => {
@@ -160,5 +103,9 @@ export default class YYTable extends React.Component {
     this.setState({
       modelVisible: false
     });
+  };
+
+  static defaultProps = {
+    onChange: () => {}
   };
 }

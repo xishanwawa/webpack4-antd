@@ -6,28 +6,17 @@ import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { YYTable } from "common";
 
-import { columns, data } from "./tpldata";
-
 //导入UI组件
 class Index extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {
-      columns: columns,
-      data: data
-    };
+    this.state = {};
   }
-
-  onChange = (type, data) => {
-    console.log({ type, data });
-    debugger;
-  };
 
   render() {
     return (
       <div style={{ margin: 20, padding: "20px", backgroundColor: "#ffffff" }}>
-        <YYTable onChange={this.onChange} columns={this.state.columns} data={this.state.data} />
-        
+        <YYTable />
       </div>
     );
   }
