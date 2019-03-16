@@ -2,4 +2,6 @@
  * Created by ytm on 4/7/16.
  */
 import YYTable from "./yy-table";
-export { YYTable };
+import YYForm from "./yy-form";
+
+export { YYTable, YYForm };
