@@ -78,6 +78,7 @@ module.exports = {
     alias: {
       reducers: path.join(__dirname, "src/reducers"),
       components: path.join(__dirname, "src/components"),
+      common: path.join(__dirname, "src/components/common"),
       store: path.join(__dirname, "src/store"),
       routes: path.join(__dirname, "src/routes"),
       assets: path.join(__dirname, "src/assets")

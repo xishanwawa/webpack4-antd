@@ -26,41 +26,13 @@ class CustomizedForm extends React.Component {
     };
 
     let nodeTpl = this.props.tplData.map((item, index) => {
-      if (item.type == "input") {
-        return (
-          <Form.Item key={item.key} label={item.label} hasFeedback {...formItemLayout}>
-            {getFieldDecorator(item.key, {
-              rules: [{ required: item.required, message: item.message }]
-            })(formTpl(item))}
-          </Form.Item>
-        );
-      } else if (item.type == "date") {
-        return (
-          <Form.Item key={item.key} label={item.label} {...formItemLayout}>
-            {getFieldDecorator(item.key, {})(formTpl(item))}
-          </Form.Item>
-        );
-      } else if (item.type == "select") {
-        return (
-          <Form.Item key={item.key} label={item.label} {...formItemLayout}>
-            {getFieldDecorator(item.key, {})(formTpl(item))}
-          </Form.Item>
-        );
-      } else if (item.type == "radio") {
-        return (
-          <Form.Item key={item.key} label={item.label} {...formItemLayout}>
-            {getFieldDecorator(item.key, {})(formTpl(item))}
-          </Form.Item>
-        );
-      } else {
-        return (
-          <Form.Item key={item.key} label={item.label} hasFeedback {...formItemLayout}>
-            {getFieldDecorator(item.key, {
-              rules: [{ required: item.required, message: item.message }]
-            })(formTpl(item))}
-          </Form.Item>
-        );
-      }
+      return (
+        <Form.Item key={item.key} label={item.label} {...formItemLayout}>
+          {getFieldDecorator(item.key, {
+            rules: [{ required: item.required, message: item.message }]
+          })(formTpl(item))}
+        </Form.Item>
+      );
     });
 
     return nodeTpl;

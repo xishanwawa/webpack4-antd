@@ -7,7 +7,6 @@ import { connect } from "react-redux";
 import { Button, Modal } from "antd";
 import QueueAnim from "rc-queue-anim";
 import reqwest from "reqwest";
-import { YYForm } from "common";
 import moment from "moment";
 import Create from "./create";
 import { tplData } from "./tplData";
@@ -21,9 +20,14 @@ class Index extends React.Component {
       data: {
         username: "",
         userage: "",
+        money: "",
+        percent: 10,
         datepicker: moment("2015-06-06"),
-        select: "china",
-        radio: "a"
+        select: "1",
+        selectMultiple: ["1", "2"],
+        radio: "1",
+        radioButton: "1",
+        checkbox: ["1", "2"]
       }
     };
   }
@@ -36,7 +40,7 @@ class Index extends React.Component {
    * fields: antd带value数据 （这里没什么用，仅供查看了解）
    */
   onChange = (changeData, data, fields) => {
-    this.setState({ data });
+    this.setState({ data, fields });
   };
 
   onOkSubmit = () => {
