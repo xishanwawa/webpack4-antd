@@ -16,22 +16,57 @@ import request from "reqwest";
 class Index1 extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      ok: ""
+    };
   }
 
-  getClickData = () => {
+  islogin = () => {
     request({
-      url: "/api/index",
+      url: "/api/islogin",
       method: "get",
       error: function(err) {},
-      success: function(resp) {
+      success: resp => {
         debugger;
+        let obj = JSON.parse(resp);
+        this.setState({ ok: obj.ok });
+      }
+    });
+  };
+
+  login = () => {
+    request({
+      url: "/api/login",
+      method: "get",
+      error: function(err) {},
+      success: resp => {
+        let obj = JSON.parse(resp);
+        this.setState({ ok: obj.ok });
+      }
+    });
+  };
+
+  logout = () => {
+    request({
+      url: "/api/logout",
+      method: "get",
+      error: function(err) {},
+      success: resp => {
+        let obj = JSON.parse(resp);
+        this.setState({ ok: obj.ok });
       }
     });
   };
 
   render() {
-    return <div>{"home1"}</div>;
+    return (
+      <div>
+        <Button onClick={this.islogin}>获取</Button>
+        <Button onClick={this.login}>登录</Button>
+        <Button onClick={this.logout}>登出</Button>
+        <div>{this.state.ok}</div>
+      </div>
+    );
   }
 }
 

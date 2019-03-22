@@ -5,13 +5,42 @@ let tplData = [
     key: "username",
     placeholder: "请输入...",
     message: "姓名 必填!",
-    required: true
+    required: true,
+    bring: {
+      key: "itemlist"
+    },
+    effect: [
+      {
+        condition: "$state.key == '1'",
+        effectItems: [
+          {
+            key: "userage",
+            merge: {
+              required: true,
+              disbled: false
+            }
+          },
+          {
+            key: "money",
+            merge: {
+              required: true,
+              disbled: false
+            }
+          }
+        ]
+      }
+    ]
   },
   {
     label: "年龄",
     type: "number",
     key: "userage",
     message: "年龄 必填!",
+    referto: "customer",
+    params: {
+      keys: ["name"],
+      globel: ["type", ""]
+    },
     placeholder: "请输入..."
   },
   {

@@ -37,7 +37,7 @@ module.exports = connect(
 
 // function mapStateToProps(state) {
 //   return {
-//     $$state: state.indexPageReducer
+//     $$state: state
 //   }
 // }
 

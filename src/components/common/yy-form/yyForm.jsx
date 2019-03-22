@@ -53,6 +53,8 @@ export default class YYForm extends React.Component {
 
         data[fieldsKey] = changeData.value;
 
+        data = Object.assign(data, changeData.itemlist);
+
         this.props.onChange(changeData, data, this.state.fields);
       }
     });

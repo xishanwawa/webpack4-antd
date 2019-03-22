@@ -3,7 +3,8 @@
  */
 
 import React, { Component, PropTypes } from "react";
-import { Form, Button, Icon, Modal, List, Checkbox, Pagination } from "antd";
+import { Form, Button, Icon, Modal, List, Radio, Checkbox, Pagination } from "antd";
+const RadioGroup = Radio.Group;
 
 export default class Refer extends React.Component {
   static getDerivedStateFromProps(nextProps) {
@@ -19,6 +20,9 @@ export default class Refer extends React.Component {
   constructor(props) {
     super(props);
     const value = props.value || {};
+    this.watch = {
+      value: value
+    };
     this.state = {
       value: value || ["1"],
       datalist: [{ label: "项目一", value: "1" }]
@@ -31,7 +35,7 @@ export default class Refer extends React.Component {
     });
   };
 
-  handleCurrencyChange = value => {
+  handleChange = value => {
     if (!("value" in this.props)) {
       this.setState({ value });
     }
@@ -50,7 +54,13 @@ export default class Refer extends React.Component {
     return (
       <List.Item>
         <div style={{ padding: "0 20px" }}>
-          <Checkbox onChange={() => {}}> {item.label}</Checkbox>
+          <Radio
+            checked={item.value == this.state.value}
+            onChange={() => {
+              this.handleChange(item.value);
+            }}>
+            {item.label}
+          </Radio>
         </div>
       </List.Item>
     );
@@ -83,6 +93,7 @@ export default class Refer extends React.Component {
 
   handleCancel = e => {
     console.log(e);
+    this.triggerChange({ value: this.watch.value });
     this.setState({
       visible: false
     });

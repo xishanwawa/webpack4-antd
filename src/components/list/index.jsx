@@ -16,7 +16,6 @@ class Index extends React.Component {
     super(props);
     this.state = {
       visible: false,
-      fields: {},
       data: {
         username: "",
         userage: "",
@@ -27,7 +26,8 @@ class Index extends React.Component {
         selectMultiple: ["1", "2"],
         radio: "1",
         radioButton: "1",
-        checkbox: ["1", "2"]
+        checkbox: ["1", "2"],
+        refer: "1"
       }
     };
   }
@@ -40,7 +40,7 @@ class Index extends React.Component {
    * fields: antd带value数据 （这里没什么用，仅供查看了解）
    */
   onChange = (changeData, data, fields) => {
-    this.setState({ data, fields });
+    this.setState({ data });
   };
 
   onOkSubmit = () => {
@@ -48,7 +48,6 @@ class Index extends React.Component {
   };
 
   render() {
-    const fields = this.state.fields;
     const data = this.state.data;
 
     return (
@@ -59,11 +58,10 @@ class Index extends React.Component {
           data={this.state.data}
           onChange={this.onChange}
           onOk={this.onOkSubmit}
-          onCancel={() => {}}
         />
 
         <pre className="language-bash">{JSON.stringify(data, null, 2)}</pre>
-        <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre>
+        {/* <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre> */}
       </div>
     );
   }

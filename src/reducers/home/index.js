@@ -1,26 +1,15 @@
-import Immutable from 'immutable'
+import Immutable from "immutable";
 let $$initialState = {
-	val: 0
+  val: 0
 };
 
-export default function home($$state = Immutable.fromJS($$initialState), action){
-	let val = 0;
-	switch (action.type) {
-	    default: 
-	        return $$state;
-	}
-};
-
-
-
-
-
-
-
-
-
-
-
+export default function home($$state = Immutable.fromJS($$initialState), action) {
+  let val = 0;
+  switch (action.type) {
+    default:
+      return $$state;
+  }
+}
 
 // keyMirror
 // "use static";
