@@ -5,7 +5,7 @@
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
 import { Button, Input, Row, Col, Switch, Modal } from "antd";
-
+import { Router, Route, hashHistory, browserHistory } from "react-router";
 const { TextArea } = Input;
 
 import moment from "moment";
@@ -27,8 +27,9 @@ class Index1 extends React.Component {
       method: "get",
       error: function(err) {},
       success: resp => {
-        debugger;
+        localStorage.setItem("userInfor", resp);
         let obj = JSON.parse(resp);
+
         this.setState({ ok: obj.ok });
       }
     });
@@ -40,6 +41,7 @@ class Index1 extends React.Component {
       method: "get",
       error: function(err) {},
       success: resp => {
+        localStorage.setItem("userInfor", resp);
         let obj = JSON.parse(resp);
         this.setState({ ok: obj.ok });
       }
@@ -52,8 +54,11 @@ class Index1 extends React.Component {
       method: "get",
       error: function(err) {},
       success: resp => {
+        localStorage.setItem("userInfor", resp);
         let obj = JSON.parse(resp);
-        this.setState({ ok: obj.ok });
+        this.setState({ ok: obj.ok }, () => {
+          browserHistory.push("/login");
+        });
       }
     });
   };

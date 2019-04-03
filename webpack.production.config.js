@@ -3,7 +3,7 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CleanWebpackPlugin = require("clean-webpack-plugin");
 const webpack = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
-
+var theme = require("./theme.js");
 module.exports = {
   target: "web",
   entry: {
@@ -51,7 +51,7 @@ module.exports = {
             }
           },
           {
-            loader: "less-loader"
+            loader: `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
           }
         ]
       },

@@ -35,20 +35,20 @@ app.use(
 
 app.get("/api/islogin", function(req, res) {
   if (req.session.login == "1") {
-    res.send(`{"ok":"欢迎${req.session.username}"}`);
+    res.send(`{"ok":"欢迎${req.session.username}", "islogin": 1}`);
   } else {
-    res.send('{"ok":"没有登录"}');
+    res.send('{"ok":"没有登录", "islogin": 0}');
   }
 });
 
 app.get("/api/login", function(req, res) {
   if (req.session.login == "1") {
-    res.send('{"ok":"已登录，不要重复登录"}');
+    res.send('{"ok":"已登录，不要重复登录", "islogin": 1}');
   } else {
     req.session.login = "1"; //设置这个session
     req.session.username = "ytm";
     res.cookie("username", "ytm", { maxAge: 900000, httpOnly: true });
-    res.send('{"ok":"成功登录"}');
+    res.send('{"ok":"成功登录", "islogin": 1}');
   }
 });
 
@@ -58,9 +58,9 @@ app.get("/api/logout", function(req, res) {
     delete req.session.username;
 
     res.clearCookie("username");
-    res.send('{"ok":"成功登出"}');
+    res.send('{"ok":"成功登出", "islogin": 0}');
   } else {
-    res.send('{"ok":"已登出, 不要重复登出"}');
+    res.send('{"ok":"已登出, 不要重复登出", "islogin": 0}');
   }
 });
 

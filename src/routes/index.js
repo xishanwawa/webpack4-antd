@@ -6,6 +6,23 @@ import { Router, Route, hashHistory, browserHistory } from "react-router";
 //     loading: Loading
 //   });
 
+let hookFn = (nextState, replace) => {
+  let userinfor = JSON.parse(localStorage.getItem("userInfor"));
+  if (userinfor.islogin == 1) {
+  } else {
+    replace("/login");
+  }
+};
+
+let hooklogin = (nextState, replace) => {
+  let userinfor = JSON.parse(localStorage.getItem("userInfor"));
+  if (userinfor.islogin == 1) {
+    replace("/home");
+  } else {
+
+  }
+};
+
 const prefix = "";
 const routes = {
   prefix: prefix,
@@ -13,6 +30,7 @@ const routes = {
   childRoutes: [
     {
       path: "login(/:loginmsg)",
+      onEnter: hooklogin,
       getComponents(location, cb) {
         require.ensure([], function(require) {
           cb(null, require("components/login"));
@@ -21,7 +39,7 @@ const routes = {
     },
     {
       path: prefix,
-      indexRoute: { onEnter: (nextState, replace) => replace("/home") },
+      indexRoute: {onEnter: hookFn, component: require("components/home") },
       getComponents(location, cb) {
         require.ensure([], function(require) {
           cb(null, require("components"));
@@ -30,6 +48,7 @@ const routes = {
       childRoutes: [
         {
           path: "home",
+          onEnter: hookFn,
           getComponents(location, cb) {
             require.ensure([], function(require) {
               cb(null, require("components/home"));
@@ -38,6 +57,7 @@ const routes = {
         },
         {
           path: "list",
+          onEnter: hookFn,
           getComponents(location, cb) {
             require.ensure([], function(require) {
               cb(null, require("components/list"));
@@ -46,6 +66,7 @@ const routes = {
         },
         {
           path: "customer",
+          onEnter: hookFn,
           getComponents(location, cb) {
             require.ensure([], function(require) {
               cb(null, require("components/customer"));

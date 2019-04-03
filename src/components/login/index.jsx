@@ -26,6 +26,7 @@ class Index1 extends React.Component {
       method: "get",
       error: function(err) {},
       success: resp => {
+        localStorage.setItem("userInfor", resp);
         let obj = JSON.parse(resp);
         this.setState({ ok: obj.ok }, () => {
           browserHistory.push("/home");

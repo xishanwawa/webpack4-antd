@@ -6,8 +6,6 @@ const CompressionPlugin = require("compression-webpack-plugin");
 //代理转发地址
 let target = "http://localhost:8007";
 
-var theme = require("./theme.js");
-
 module.exports = {
   target: "web",
   entry: {
@@ -56,7 +54,7 @@ module.exports = {
             }
           },
           {
-            loader: `less-loader?{"sourceMap":true,"modifyVars":${JSON.stringify(theme)}}`
+            loader: `less-loader`
           }
         ]
       },

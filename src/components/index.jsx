@@ -3,13 +3,14 @@
  */
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router";
+import { Link, browserHistory } from "react-router";
 import "./index.less";
 
 import { Layout, Menu, Breadcrumb, Icon, Button, Col, Row, Dropdown } from "antd";
 const SubMenu = Menu.SubMenu;
 
 const { Header, Content, Sider, Footer } = Layout;
+import request from "reqwest";
 
 class Index extends React.Component {
   constructor(props) {
@@ -40,6 +41,21 @@ class Index extends React.Component {
     });
   };
 
+  logout = () => {
+    request({
+      url: "/api/logout",
+      method: "get",
+      error: function(err) {},
+      success: resp => {
+        localStorage.setItem("userInfor", resp);
+        let obj = JSON.parse(resp);
+        this.setState({ ok: obj.ok }, () => {
+          browserHistory.push("/login");
+        });
+      }
+    });
+  };
+
   handleClick = e => {
     console.log("click ", e);
     this.setState({ keyPath: e.keyPath.reverse() });
@@ -54,7 +70,9 @@ class Index extends React.Component {
           </a>
         </Menu.Item>
         <Menu.Divider />
-        <Menu.Item key="2">登出</Menu.Item>
+        <Menu.Item key="2" onClick={this.logout}>
+          登出
+        </Menu.Item>
       </Menu>
     );
 
