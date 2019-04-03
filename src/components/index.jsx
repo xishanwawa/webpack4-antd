@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { Link } from "react-router";
 import "./index.less";
 
-import { Layout, Menu, Breadcrumb, Icon, Button } from "antd";
+import { Layout, Menu, Breadcrumb, Icon, Button, Col, Row, Dropdown } from "antd";
 const SubMenu = Menu.SubMenu;
 
 const { Header, Content, Sider, Footer } = Layout;
@@ -46,11 +46,34 @@ class Index extends React.Component {
   };
 
   render() {
+    const menuDropdown = (
+      <Menu>
+        <Menu.Item key="0">
+          <a target="_blank" rel="noopener">
+            个人中心
+          </a>
+        </Menu.Item>
+        <Menu.Divider />
+        <Menu.Item key="2">登出</Menu.Item>
+      </Menu>
+    );
+
     return (
       <Layout>
         <Layout>
           <Header>
-            <div className="logo" />
+            <Row>
+              <Col span={18}>
+                <div className="logo" />
+              </Col>
+              <Col span={6} justify={"end"}>
+                <Dropdown overlay={menuDropdown}>
+                  <a className="ant-dropdown-link" href="#">
+                    ytm <Icon type="down" />
+                  </a>
+                </Dropdown>
+              </Col>
+            </Row>
           </Header>
         </Layout>
         <Layout>

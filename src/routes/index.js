@@ -6,44 +6,55 @@ import { Router, Route, hashHistory, browserHistory } from "react-router";
 //     loading: Loading
 //   });
 
+const prefix = "";
 const routes = {
+  prefix: prefix,
   path: "/",
   childRoutes: [
     {
-      path: "home",
-      getComponent(nextState, cb) {
-        require.ensure([], require => {
-          cb(null, require("components/home"));
+      path: "login(/:loginmsg)",
+      getComponents(location, cb) {
+        require.ensure([], function(require) {
+          cb(null, require("components/login"));
         });
       }
     },
     {
-      path: "customer",
-      getComponent(nextState, cb) {
-        require.ensure([], require => {
-          cb(null, require("components/customer"));
+      path: prefix,
+      indexRoute: { onEnter: (nextState, replace) => replace("/home") },
+      getComponents(location, cb) {
+        require.ensure([], function(require) {
+          cb(null, require("components"));
         });
-      }
-    },
-    {
-      path: "list",
-      getComponent(nextState, cb) {
-        require.ensure([], require => {
-          cb(null, require("components/list"));
-        });
-      }
-    },
-    {
-      path: "dnd",
-      getComponent(nextState, cb) {
-        require.ensure([], require => {
-          cb(null, require("components/dnd"));
-        });
-      }
+      },
+      childRoutes: [
+        {
+          path: "home",
+          getComponents(location, cb) {
+            require.ensure([], function(require) {
+              cb(null, require("components/home"));
+            });
+          }
+        },
+        {
+          path: "list",
+          getComponents(location, cb) {
+            require.ensure([], function(require) {
+              cb(null, require("components/list"));
+            });
+          }
+        },
+        {
+          path: "customer",
+          getComponents(location, cb) {
+            require.ensure([], function(require) {
+              cb(null, require("components/customer"));
+            });
+          }
+        }
+      ]
     }
-  ],
-  component: require("components"),
-  indexRoute: { component: require("components/home") }
+  ]
 };
 
 export default class Routes extends Component {
