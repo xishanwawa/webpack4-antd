@@ -32,8 +32,32 @@ class Index extends React.Component {
   componentDidMount() {
     const { location } = this.props;
     const pathSnippets = location.pathname.split("/").filter(i => i);
+    this.islogin();
     this.setState({});
   }
+
+  islogin = () => {
+    request({
+      url: "/api/islogin",
+      method: "get",
+      error: err => {
+        localStorage.setItem("userInfor", '{"islogin":0}');
+        this.setState({ ok: "" }, () => {
+          browserHistory.push("/login");
+        });
+      },
+      success: resp => {
+        localStorage.setItem("userInfor", resp);
+        let obj = JSON.parse(resp);
+
+        this.setState({ ok: obj.ok }, () => {
+          if (obj.islogin == 1) {
+            browserHistory.push("/login");
+          }
+        });
+      }
+    });
+  };
 
   toggleCollapsed = () => {
     this.setState({
