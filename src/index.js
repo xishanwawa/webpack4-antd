@@ -7,14 +7,13 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import { store } from "store";
 import Routes from "routes";
-import { LocaleProvider } from "antd";
-import zhCN from "antd/lib/locale-provider/zh_CN";
-
+import { DragDropContextProvider } from "react-dnd";
+import HTML5Backend from "react-dnd-html5-backend";
 ReactDOM.render(
-  <LocaleProvider locale={zhCN}>
+  <DragDropContextProvider backend={HTML5Backend}>
     <Provider store={store}>
       <Routes />
     </Provider>
-  </LocaleProvider>,
+  </DragDropContextProvider>,
   document.getElementById("root")
 );

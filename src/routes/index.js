@@ -19,7 +19,6 @@ let hooklogin = (nextState, replace) => {
   if (userinfor.islogin == 1) {
     replace("/home");
   } else {
-
   }
 };
 
@@ -39,7 +38,7 @@ const routes = {
     },
     {
       path: prefix,
-      indexRoute: {onEnter: hookFn, component: require("components/home") },
+      indexRoute: { onEnter: hookFn, component: require("components/home") },
       getComponents(location, cb) {
         require.ensure([], function(require) {
           cb(null, require("components"));

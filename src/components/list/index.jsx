@@ -4,11 +4,12 @@
 
 import React, { Component, PropTypes } from "react";
 import { connect } from "react-redux";
-import { Button, Modal } from "antd";
+import { Button, Modal, Col, Row } from "antd";
 import QueueAnim from "rc-queue-anim";
 import reqwest from "reqwest";
 import moment from "moment";
 import Create from "./create";
+import { YYForm } from "common";
 import { tplData } from "./tplData";
 //导入UI组件
 class Index extends React.Component {
@@ -52,16 +53,21 @@ class Index extends React.Component {
 
     return (
       <div style={{ margin: "20px 20px 0", padding: "24px 32px", backgroundColor: "#ffffff" }}>
-        <Create
-          title={"新建"}
-          tplData={tplData}
-          data={this.state.data}
-          onChange={this.onChange}
-          onOk={this.onOkSubmit}
-        />
-
-        <pre className="language-bash">{JSON.stringify(data, null, 2)}</pre>
-        {/* <pre className="language-bash">{JSON.stringify(fields, null, 2)}</pre> */}
+        <Row>
+          <Col span={12}>
+            <YYForm
+              tplData={tplData}
+              data={this.state.data}
+              onChange={this.onChange}
+              ref={ref => {
+                this.form = ref;
+              }}
+            />
+          </Col>
+          <Col span={12}>
+            <pre className="language-bash">{JSON.stringify(data, null, 2)}</pre>
+          </Col>
+        </Row>
       </div>
     );
   }

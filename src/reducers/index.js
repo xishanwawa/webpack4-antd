@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
 
 import home from "./home";
-import globalState from "./home";
+import common from "./common";
 let rootReducer = combineReducers({
-  home,
-  globalState
+  common,
+  home
 });
 
 export { rootReducer };

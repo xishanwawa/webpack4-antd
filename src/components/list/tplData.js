@@ -1,5 +1,11 @@
 let tplData = [
   {
+    label: "参照",
+    type: "refer",
+    key: "refer",
+    placeholder: "请输入..."
+  },
+  {
     label: "姓名",
     type: "input",
     key: "username",
@@ -89,12 +95,6 @@ let tplData = [
     label: "多选按钮",
     type: "checkbox",
     key: "checkbox",
-    placeholder: "请输入..."
-  },
-  {
-    label: "参照",
-    type: "refer",
-    key: "refer",
     placeholder: "请输入..."
   }
 ];

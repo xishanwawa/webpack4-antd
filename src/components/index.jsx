@@ -105,14 +105,14 @@ class Index extends React.Component {
         <Layout>
           <Header>
             <Row>
-              <Col span={18}>
+              <Col span={22}>
                 <div className="logo" />
               </Col>
-              <Col span={6} justify={"end"}>
+              <Col span={2} justify={"end"}>
                 <Dropdown overlay={menuDropdown}>
-                  <a className="ant-dropdown-link" href="#">
+                  <span className="ant-dropdown-link" style={{ color: "#ffffff" }}>
                     ytm <Icon type="down" />
-                  </a>
+                  </span>
                 </Dropdown>
               </Col>
             </Row>
